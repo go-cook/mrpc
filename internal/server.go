@@ -53,9 +53,11 @@ func (s *baseRpcServer) AddOptions(options ...grpc.ServerOption) {
 func (s *baseRpcServer) AddStreamInterceptors(interceptors ...grpc.StreamServerInterceptor) {
 	s.streamInterceptors = append(s.streamInterceptors, interceptors...)
 }
+
 func (s *baseRpcServer) AddUnaryInterceptors(interceptors ...grpc.UnaryServerInterceptor) {
 	s.unaryInterceptors = append(s.unaryInterceptors, interceptors...)
 }
+
 func (s *baseRpcServer) SetName(name string) {
 	s.metrics.SetName(name)
 }
