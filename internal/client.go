@@ -18,7 +18,7 @@ const (
 )
 
 func init() {
-
+	// TODO Register
 }
 
 type (

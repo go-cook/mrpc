@@ -88,6 +88,6 @@ func setupInterceptors(server internal.Server, c RpcServerConf, metrics *stat.Me
 		server.AddUnaryInterceptors(serverinterceptors.UnaryTimeoutInterceptor(
 			time.Duration(c.Timeout) * time.Millisecond))
 	}
-	// TODO AUTH
+	// TODO Auth
 	return nil
 }

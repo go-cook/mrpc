@@ -22,7 +22,7 @@ type (
 )
 
 func init() {
-
+	InitLogger()
 }
 
 func NewRpcServer(address string, opts ...ServerOption) Server {
