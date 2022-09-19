@@ -11,9 +11,9 @@ const (
 
 type (
 	RpcServerConf struct {
-		ServiceConf
-		Addr    string `json:"Addr"`
-		Timeout int64  `json:"Timeout"`
+		ServiceConf `mapstructure:",squash"`
+		Addr        string `json:"Addr"`
+		Timeout     int64  `json:"Timeout"`
 	}
 	RpcClientConf struct {
 		Target   string `json:"Target"`
