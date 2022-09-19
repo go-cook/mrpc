@@ -1,5 +1,14 @@
 package mrpc
 
+const (
+	DevMode     = "dev"
+	TestMode    = "test"
+	RtMode      = "rt"
+	PreMode     = "pre"
+	ProMode     = "pro"
+	ReleaseMode = "release"
+)
+
 type (
 	RpcServerConf struct {
 		ServiceConf
