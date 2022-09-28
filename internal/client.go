@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-ll/mrpc/internal/balancer/p2c"
+	"github.com/go-ll/mrpc/internal/clientinterceptors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
@@ -76,10 +77,14 @@ func (c *client) buildDialOptions(opts ...ClientOption) []grpc.DialOption {
 
 	options = append(options,
 		WithUnaryClientInterceptors(
-		//TODO
+			clientinterceptors.UnaryTracingInterceptor,
+			clientinterceptors.DurationInterceptor,
+			clientinterceptors.PrometheusInterceptor,
+			clientinterceptors.BreakerInterceptor,
+			clientinterceptors.TimeoutInterceptor(cliOpts.Timeout),
 		),
 		WithStreamClientInterceptors(
-		//TODO
+			clientinterceptors.StreamTracingInterceptor,
 		),
 	)
 
