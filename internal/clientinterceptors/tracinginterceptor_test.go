@@ -18,7 +18,7 @@ import (
 
 func TestOpenTracingInterceptor(t *testing.T) {
 	trace.StartAgent(trace.Config{
-		Name:     "go-zero-test",
+		Name:     "mrpc-test",
 		Endpoint: "http://localhost:14268/api/traces",
 		Batcher:  "jaeger",
 		Sampler:  1.0,
