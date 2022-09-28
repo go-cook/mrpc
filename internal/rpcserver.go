@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"github.com/go-ll/mrpc/internal/serverinterceptors"
 	"github.com/zeromicro/go-zero/core/proc"
 	"github.com/zeromicro/go-zero/core/stat"
 	"google.golang.org/grpc"
@@ -50,9 +51,19 @@ func (s *rpcServer) Start(register RegisterFn) error {
 		return err
 	}
 
-	unaryInterceptors := []grpc.UnaryServerInterceptor{}
+	unaryInterceptors := []grpc.UnaryServerInterceptor{
+		serverinterceptors.UnaryTracingInterceptor,
+		serverinterceptors.UnaryCrashInterceptor,
+		serverinterceptors.UnaryStatInterceptor(s.metrics),
+		serverinterceptors.UnaryPrometheusInterceptor,
+		serverinterceptors.UnaryBreakerInterceptor,
+	}
 	unaryInterceptors = append(unaryInterceptors, s.unaryInterceptors...)
-	streamInterceptors := []grpc.StreamServerInterceptor{}
+	streamInterceptors := []grpc.StreamServerInterceptor{
+		serverinterceptors.StreamTracingInterceptor,
+		serverinterceptors.StreamCrashInterceptor,
+		serverinterceptors.StreamBreakerInterceptor,
+	}
 	streamInterceptors = append(streamInterceptors, s.streamInterceptors...)
 	options := append(s.options, WithUnaryServerInterceptors(unaryInterceptors...),
 		WithStreamServerInterceptors(streamInterceptors...))

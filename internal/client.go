@@ -75,8 +75,12 @@ func (c *client) buildDialOptions(opts ...ClientOption) []grpc.DialOption {
 	}
 
 	options = append(options,
-		WithUnaryClientInterceptors(),
-		WithStreamClientInterceptors(),
+		WithUnaryClientInterceptors(
+		//TODO
+		),
+		WithStreamClientInterceptors(
+		//TODO
+		),
 	)
 
 	return append(options, cliOpts.DialOptions...)

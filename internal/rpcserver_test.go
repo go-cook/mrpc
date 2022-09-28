@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"github.com/go-ll/mrpc/internal/mock"
 	"github.com/stretchr/testify/assert"
 	"github.com/zeromicro/go-zero/core/stat"
 	"google.golang.org/grpc"
@@ -19,7 +20,7 @@ func TestRpcServer(t *testing.T) {
 	go func() {
 		err := server.Start(func(server *grpc.Server) {
 			lock.Lock()
-			//mock.RegisterDepositServiceServer(server, new(mock.DepositServer))
+			mock.RegisterDepositServiceServer(server, new(mock.DepositServer))
 			grpcServer = server
 			lock.Unlock()
 			wg.Done()
@@ -37,7 +38,7 @@ func TestRpcServer_WithBadAddress(t *testing.T) {
 	server := NewRpcServer("localhost:111111")
 	server.SetName("mock")
 	err := server.Start(func(server *grpc.Server) {
-		//mock.RegisterDepositServiceServer(server, new(mock.DepositServer))
+		mock.RegisterDepositServiceServer(server, new(mock.DepositServer))
 	})
 	assert.NotNil(t, err)
 }
